@@ -18,6 +18,10 @@ core:
 ue:
 	-helm -n $(NAMESPACE) install ueransim-v1 ./ueransim/
 
+get-all:
+	microk8s kubectl get pods -n $(NAMESPACE)
+service-all:
+	microk8s kubectl get svc -n $(NAMESPACE)
 get:
 	@if [ -z "$(word 2, $(MAKECMDGOALS))" ]; then \
 		echo "Usage: make get <nf-name> (e.g., make get amf)"; \
