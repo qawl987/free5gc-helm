@@ -35,7 +35,7 @@ global:
     enabled: true
     name: n4network
     type: ipvlan
-    masterIf: eth0
+    masterIf: enp0s8
     subnetIP: 10.100.50.240
     cidr: 29
     gatewayIP: 10.100.50.246
@@ -87,7 +87,8 @@ smf:
     timeoutSeconds: 10
     failureThreshold: 3
     successThreshold: 1
-  nodeSelector: {}
+  nodeSelector:
+    kubernetes.io/hostname: ns
   tolerations: []
   affinity: {}
   autoscaling:
@@ -151,7 +152,7 @@ smf:
             interfaces:
               - interfaceType: N3
                 endpoints:
-                  - 10.100.50.233
+                  - 192.168.56.19
                 networkInstances: 
                   - internet
               - interfaceType: N9
