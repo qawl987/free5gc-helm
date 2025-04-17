@@ -15,6 +15,8 @@ core:
 	-microk8s kubectl apply -f persistent-vol-for-mongodb.yaml
 	-microk8s kubectl apply -f persistent-vol-for-cert.yaml
 	-helm -n $(NAMESPACE) install free5gc-v1 ./free5gc/
+nginx-edge:
+	-microk8s kubectl apply -f nginx-multus.yaml
 ue:
 	-helm -n $(NAMESPACE) install ueransim-v1 ./ueransim/
 

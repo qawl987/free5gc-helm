@@ -1,0 +1,59 @@
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: nginx-nad
+  namespace: free5gc
+spec:
+  config: '{
+    "cniVersion": "0.3.0",
+    "type": "ipvlan",
+    "master": "enp0s3",
+    "mode": "l2",
+    "ipam": {
+      "type": "static",
+      "addresses": [
+        {
+          "address": "10.0.2.24/24",
+          "gateway": "10.0.2.2"
+        }
+      ],
+      "routes": [
+        { "dst": "0.0.0.0/0" }
+      ]
+    }
+  }'
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-edge
+  namespace: free5gc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-edge
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: '[{
+          "name": "nginx-nad",
+          "namespace": "free5gc"
+        }]'
+      labels:
+        app: nginx-edge
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: ns2
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+                - NET_RAW
+          ports:
+            - containerPort: 80
