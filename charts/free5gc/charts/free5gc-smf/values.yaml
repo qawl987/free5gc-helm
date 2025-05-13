@@ -35,7 +35,7 @@ global:
     enabled: true
     name: n4network
     type: ipvlan
-    masterIf: eth0
+    masterIf: enp0s8
     subnetIP: 10.100.50.240
     cidr: 29
     gatewayIP: 10.100.50.246
@@ -87,7 +87,8 @@ smf:
     timeoutSeconds: 10
     failureThreshold: 3
     successThreshold: 1
-  nodeSelector: {}
+  nodeSelector:
+    kubernetes.io/hostname: ns
   tolerations: []
   affinity: {}
   autoscaling:
@@ -151,7 +152,7 @@ smf:
             interfaces:
               - interfaceType: N3
                 endpoints:
-                  - 10.100.50.233
+                  - 192.168.56.19
                 networkInstances: 
                   - internet
               - interfaceType: N9
@@ -201,6 +202,7 @@ smf:
           - A: BranchingUPF
             B: AnchorUPF2
       locality: area1 # Name of the location where a set of AMF, SMF and UPFs are located
+      ulcl: true
       t3591:
         enable: true # true or false
         expireTime: 16s # default is 6 seconds
@@ -225,7 +227,8 @@ smf:
         specificPath:
           - dest: 1.0.0.1/32
             path: [BranchingUPF, AnchorUPF2]
-
+          - dest: 10.0.2.105/32
+            path: [BranchingUPF, AnchorUPF1]
       UE2: # Group Name
         members:
         - imsi-208930000000004 # Subscription Permanent Identifier of the UE
