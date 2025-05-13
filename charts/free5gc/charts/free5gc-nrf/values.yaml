@@ -30,7 +30,7 @@ global:
 
 initcontainers:
   curl:
-    registry: curlimages
+    registry: localhost:32000
     image: curl
     tag: "8.7.1"
   busybox:
@@ -43,6 +43,10 @@ db:
 mongodb:
   fullnameOverride: "mongodb"
   useStatefulSet: true
+  image:
+    registry: localhost:32000
+    repository: bitnami/mongodb # Or just 'mongodb' if that's your image name in the local repo
+    tag: 7.0.9-debian-12-r4 # e.g., 7.0.9 or a custom build tag
   auth:
     enabled: false
   persistence:
@@ -86,7 +90,8 @@ nrf:
     timeoutSeconds: 10
     failureThreshold: 3
     successThreshold: 1
-  nodeSelector: {}
+  nodeSelector:
+    kubernetes.io/hostname: ns
   tolerations: []
   affinity: {}
   autoscaling:

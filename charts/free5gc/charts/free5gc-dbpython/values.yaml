@@ -57,6 +57,7 @@ dbpython:
       memory: 128Mi
   readinessProbe: {}
   livenessProbe: {}
-  nodeSelector: {}
+  nodeSelector:
+    kubernetes.io/hostname: ns
   tolerations: []
   affinity: {}

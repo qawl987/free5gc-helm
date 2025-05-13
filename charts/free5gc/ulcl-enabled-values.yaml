@@ -71,7 +71,7 @@ free5gc-smf:
             interfaces:
               - interfaceType: N3
                 endpoints:
-                  - 10.100.50.233
+                  - 192.168.56.19
                 networkInstance: internet
               - interfaceType: N9
                 endpoints:

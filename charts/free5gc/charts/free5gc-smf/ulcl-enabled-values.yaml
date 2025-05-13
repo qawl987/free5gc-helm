@@ -49,7 +49,7 @@ smf:
             interfaces:
               - interfaceType: N3
                 endpoints:
-                  - 10.100.50.233
+                  - 192.168.56.19
                 networkInstances: 
                   - internet
               - interfaceType: N9
@@ -99,6 +99,7 @@ smf:
           - A: BranchingUPF
             B: AnchorUPF2
       locality: area1 # Name of the location where a set of AMF, SMF and UPFs are located
+      ulcl: true
       t3591:
         enable: true # true or false
         expireTime: 16s # default is 6 seconds
