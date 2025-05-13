@@ -15,7 +15,7 @@ spec:
       containers:
       - name: openness-af
         image: localhost:32000/af:latest
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         securityContext:
           privileged: false
         command: ["/bin/bash", "-c", "--"]
