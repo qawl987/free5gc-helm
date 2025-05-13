@@ -117,7 +117,7 @@ volumeMounts: []
 #   readOnly: true
 
 nodeSelector:
-  kubernetes.io/hostname: ns2
+  kubernetes.io/hostname: ns
 
 tolerations: []
 

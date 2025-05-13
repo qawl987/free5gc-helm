@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
       - name: openness-af
-        image: af:latest
-        imagePullPolicy: Never
+        image: localhost:32000/af:latest
+        imagePullPolicy: IfNotPresent
         securityContext:
           privileged: false
         command: ["/bin/bash", "-c", "--"]
@@ -35,5 +35,5 @@ spec:
         operator: "Exists"
         effect: "NoSchedule"
       nodeSelector:
-        kubernetes.io/hostname: [Edge Node Name]
+        kubernetes.io/hostname: ns2
       restartPolicy: Always
