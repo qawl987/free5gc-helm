@@ -16,7 +16,7 @@
 
 global:
   name: free5gc
-  userPlaneArchitecture: ulcl  # possible values are "single" and "ulcl"
+  userPlaneArchitecture: single  # possible values are "single" and "ulcl"
   nrf:
     service:
       name: nrf-nnrf
@@ -75,7 +75,7 @@ global:
     subnetIP: 10.0.2.0
     cidr: 24
     gatewayIP: 10.0.2.2
-    excludeIP: 10.100.100.254
+    excludeIP: 10.0.2.254
   n9network:
     enabled: true
     name: n9network
