@@ -74,6 +74,17 @@ UPF Pod Annotations
 {{- end }}
 
 {{/*
+UPFA Pod Annotations
+*/}}
+{{- define "free5gc-upf.upfaAnnotations" -}}
+{{- with .Values.upfa }}
+{{- if .podAnnotations }}
+{{- toYaml .podAnnotations }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{/*
 UPFb Pod Annotations
 */}}
 {{- define "free5gc-upf.upfbAnnotations" -}}

@@ -11,7 +11,7 @@
 # Software description: An open-source project providing Helm charts to deploy 5G components (Core + RAN) on top of Kubernetes
 #
 {{- if eq .Values.global.userPlaneArchitecture "single" }}
-{{- with .Values.upf }}
+{{- with .Values.upfa }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -49,6 +49,7 @@ data:
     iptables -A FORWARD -j ACCEPT
     iptables -t nat -A POSTROUTING -s {{ $.Values.global.uesubnet }} -o n6 -j MASQUERADE  # route traffic comming from the UE SUBNET to the interface N6
     echo "1200 n6if" >> /etc/iproute2/rt_tables # create a routing table for the interface N6
+
     ip rule add from {{ $.Values.global.uesubnet }} to 10.0.2.0/24 lookup main priority 10000
     ip rule add from {{ $.Values.global.uesubnet }} lookup n6if priority 11000
     ip route add default via {{ $.Values.global.n6network.gatewayIP }} dev n6 table n6if  # add a default route in the created table so that all UEs will use this gateway for external communications (target IP not in the Data Network attached to the interface N6) and then the Data Network will manage to route the traffic
