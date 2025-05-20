@@ -158,7 +158,7 @@ smf:
                 dnnUpfInfoList:
                   - dnn: internet
                     pools:
-                    - cidr: 10.1.1.0/24
+                    - cidr: 10.1.0.0/17
             interfaces:
               - interfaceType: N3
                 endpoints:
@@ -175,7 +175,7 @@ smf:
                 dnnUpfInfoList:
                   - dnn: internet2
                     pools:
-                    - cidr: 10.1.2.0/24
+                    - cidr: 10.1.128.0/17
             interfaces:
               - interfaceType: N3
                 endpoints:
