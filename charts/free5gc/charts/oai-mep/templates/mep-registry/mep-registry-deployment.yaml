@@ -33,7 +33,7 @@ spec:
             - name: FQDN
               value: "oai-mep.org"
             - name: BACKEND
-              value: "10.0.2.3:8001"
+              value: "10.0.2.6:8001"
             - name: DATABASE_HOST
               value: "10.0.2.4"
             - name: DATABASE_PORT
