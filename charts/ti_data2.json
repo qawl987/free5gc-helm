@@ -1,0 +1,24 @@
+{
+    "afServiceId": "Service2",
+    "dnn": "internet2",
+    "snssai": {
+        "sst": 1,
+        "sd": "112233"
+    },
+    "anyUeInd": true,
+    "notificationDestination": "http://af:8000/test123",
+    "trafficFilters": [
+		{
+			"flowId": 2,
+			"flowDescriptions": [
+				"permit out ip from 10.0.2.107 to 10.1.128.0/17"
+			]
+		}
+	],
+    "trafficRoutes": [
+        {
+            "dnai": "mec2"
+        }
+    ]
+}
+
