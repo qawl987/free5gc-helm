@@ -18,15 +18,7 @@ spec:
         kubernetes.io/hostname: ns2
       containers:
         - name: oai-mec-app-1
-          image: ubuntu:20.04
-          command:
-            - /bin/bash
-            - -c
-            - |
-              apt update && \
-              apt install -y python3-pip vim net-tools curl && \
-              pip install flask requests && \
-              python3 /app/app.py
+          image: localhost:32000/mec-app1:v1
           volumeMounts:
           - name: script-volume
             mountPath: /app

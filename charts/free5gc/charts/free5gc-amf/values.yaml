@@ -63,9 +63,9 @@ amf:
   name: amf
   replicaCount: 1
   image:
-    name: free5gc/amf
+    name: localhost:32000/free5gc/amf
     tag: v3.4.5
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   service:
     type: ClusterIP
     port: 80

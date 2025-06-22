@@ -85,6 +85,20 @@ edit-service: service
 		microk8s kubectl edit svc "$(SERVICE_NAME)" -n $(NAMESPACE); \
 	fi
 
+VERSION := v3.4.5
+REGISTRY := localhost:32000
+REPO := free5gc
+SERVICES := amf ausf chf nef nrf nssf pcf smf udm udr upf webui
+download-image: $(patsubst %,push-%,$(SERVICES))
+
+push-%:
+	@echo "--- Processing Image: $* ---"
+	docker pull $(REPO)/$*:$(VERSION)
+	docker tag $(REPO)/$*:$(VERSION) $(REGISTRY)/$(REPO)/$*:$(VERSION)
+	docker push $(REGISTRY)/$(REPO)/$*:$(VERSION)
+	@echo "✅ Successfully pushed $(REGISTRY)/$(REPO)/$*:$(VERSION)"
+	@echo ""
+
 # Ignore extra arguments (prevent make from reporting an error)
 %:
 	@:

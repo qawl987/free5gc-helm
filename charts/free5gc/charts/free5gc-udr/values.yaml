@@ -51,9 +51,9 @@ udr:
   name: udr
   replicaCount: 1
   image:
-    name: free5gc/udr
+    name: localhost:32000/free5gc/udr
     tag: v3.4.5
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   service:
     type: ClusterIP
     port: 80
