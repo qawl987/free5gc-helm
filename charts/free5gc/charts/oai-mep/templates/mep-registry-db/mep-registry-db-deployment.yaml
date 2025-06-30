@@ -15,10 +15,10 @@ spec:
         k8s.v1.cni.cncf.io/networks: oai-mep-registry-db-nad
     spec:
       nodeSelector:
-        kubernetes.io/hostname: [Edge Node Name]
+        kubernetes.io/hostname: ns2
       containers:
         - name: oai-mep-registry-db
-          image: mongo:latest
+          image: localhost:32000/mongo:latest
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
               value: "admin"

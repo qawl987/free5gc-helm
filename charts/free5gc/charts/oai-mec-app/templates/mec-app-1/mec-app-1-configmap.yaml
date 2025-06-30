@@ -7,7 +7,7 @@ data:
     from flask import Flask
     import requests
 
-    url = "http://[OAI MEP Registry IP Address]/v1/register"
+    url = "http://10.0.2.7/v1/register"
 
     headers = {
         "accept": "application/json",
@@ -17,7 +17,7 @@ data:
     payload = {
         "uid": "first_mec_app_uid",
         "description": "This is a service of the first mec app.",
-        "host": "[OAI MEC App 1 IP Address]",
+        "host": "10.0.2.105",
         "name": "first_mec_app",
         "path": "/v1",
         "port": 80,
@@ -77,4 +77,4 @@ data:
         '''
 
     if __name__ == '__main__':
-        app.run(host = '[OAI MEC App 1 IP Address]', port = 80)
+        app.run(host = '10.0.2.105', port = 80)
