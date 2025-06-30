@@ -15,7 +15,7 @@ spec:
         k8s.v1.cni.cncf.io/networks: oai-mep-gateway-db-nad
     spec:
       nodeSelector:
-        kubernetes.io/hostname: [Edge Node Name]
+        kubernetes.io/hostname: ns2
       containers:
         - name: oai-mep-gateway-db
           image: postgres:9.6

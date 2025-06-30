@@ -9,7 +9,7 @@ spec:
         k8s.v1.cni.cncf.io/networks: oai-kong-migration-nad
     spec:
       nodeSelector:
-        kubernetes.io/hostname: [Edge Node Name]
+        kubernetes.io/hostname: ns2
       restartPolicy: OnFailure
       containers:
         - name: oai-kong-migration
@@ -17,6 +17,6 @@ spec:
           command: ["kong", "migrations", "bootstrap"]
           env:
             - name: KONG_PG_HOST
-              value: "[OAI MEP Gateway DB IP Address]"
+              value: "10.0.2.3"
             - name: KONG_PG_PASSWORD
               value: "kong"

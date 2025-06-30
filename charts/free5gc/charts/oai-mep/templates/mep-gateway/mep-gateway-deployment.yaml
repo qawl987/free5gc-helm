@@ -15,13 +15,13 @@ spec:
         k8s.v1.cni.cncf.io/networks: oai-mep-gateway-nad
     spec:
       nodeSelector:
-        kubernetes.io/hostname: [Edge Node Name]
+        kubernetes.io/hostname: ns2
       containers:
         - name: oai-mep-gateway
           image: kong:3.0-alpine
           env:
             - name: KONG_PG_HOST
-              value: "[OAI MEP Gateway DB IP Address]"
+              value: "10.0.2.3"
             - name: KONG_PG_PASSWORD
               value: "kong"
             - name: KONG_PROXY_LISTEN

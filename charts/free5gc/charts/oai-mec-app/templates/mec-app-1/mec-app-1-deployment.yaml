@@ -15,7 +15,7 @@ spec:
         k8s.v1.cni.cncf.io/networks: oai-mec-app-1-nad
     spec:
       nodeSelector:
-        kubernetes.io/hostname: [Edge Node Name]
+        kubernetes.io/hostname: ns2
       containers:
         - name: oai-mec-app-1
           image: ubuntu:20.04
