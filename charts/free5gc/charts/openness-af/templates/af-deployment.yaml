@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openness-af
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openness-af
+  template:
+    metadata:
+      labels:
+        app: openness-af
+    spec:
+      containers:
+      - name: openness-af
+        image: af:latest
+        imagePullPolicy: Never
+        securityContext:
+          privileged: false
+        command: ["/bin/bash", "-c", "--"]
+        args: ["./entrypoint.sh"]
+        resources:
+          requests:
+            memory: 1Gi
+          limits:
+            memory: 1Gi
+        ports:
+        - containerPort: 8050
+          name: cnca
+        - containerPort: 8051
+          name: nef
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        operator: "Exists"
+        effect: "NoSchedule"
+      nodeSelector:
+        kubernetes.io/hostname: [Edge Node Name]
+      restartPolicy: Always
