@@ -1,0 +1,93 @@
+config_version: "v2"
+
+common:
+  # IMPORTANT: 您必須在此處列出 free5GC 的主要網路功能 (NF) 的容器名稱。
+  # 您可以透過 `kubectl get pods -n free5gc -o jsonpath='{.items[*].spec.containers[*].name}'` 來查詢。
+  container_names:
+    - name: amf
+      rolling_update_test_tag: "v4.0.1"
+      rolling_downgrade_test_tag: "v3.4.5"
+      rolling_version_change_test_tag: "v4.0.1"
+      rollback_from_tag: "v4.0.1"
+    - name: ausf
+      rolling_update_test_tag: "v4.0.1"
+      rolling_downgrade_test_tag: "v3.4.5"
+      rolling_version_change_test_tag: "v4.0.1"
+      rollback_from_tag: "v4.0.1"
+    - name: chf
+      rolling_update_test_tag: "v4.0.1"
+      rolling_downgrade_test_tag: "v3.4.5"
+      rolling_version_change_test_tag: "v4.0.1"
+      rollback_from_tag: "v4.0.1"
+    - name: dbpython
+      rolling_update_test_tag: "v3.3.0"
+      rolling_downgrade_test_tag: "v3.3.0"
+      rolling_version_change_test_tag: "v3.3.0"
+      rollback_from_tag: "v3.3.0"
+    - name: nef
+      rolling_update_test_tag: "v4.0.1"
+      rolling_downgrade_test_tag: "v3.4.5"
+      rolling_version_change_test_tag: "v4.0.1"
+      rollback_from_tag: "v4.0.1"
+    - name: nrf
+      rolling_update_test_tag: "v4.0.1"
+      rolling_downgrade_test_tag: "v3.4.5"
+      rolling_version_change_test_tag: "v4.0.1"
+      rollback_from_tag: "v4.0.1"
+    - name: nssf
+      rolling_update_test_tag: "v4.0.1"
+      rolling_downgrade_test_tag: "v3.4.5"
+      rolling_version_change_test_tag: "v4.0.1"
+      rollback_from_tag: "v4.0.1"
+    - name: pcf
+      rolling_update_test_tag: "v4.0.1"
+      rolling_downgrade_test_tag: "v3.4.5"
+      rolling_version_change_test_tag: "v4.0.1"
+      rollback_from_tag: "v4.0.1"
+    - name: smf
+      rolling_update_test_tag: "v4.0.1"
+      rolling_downgrade_test_tag: "v3.4.5"
+      rolling_version_change_test_tag: "v4.0.1"
+      rollback_from_tag: "v4.0.1"
+    - name: udm
+      rolling_update_test_tag: "v4.0.1"
+      rolling_downgrade_test_tag: "v3.4.5"
+      rolling_version_change_test_tag: "v4.0.1"
+      rollback_from_tag: "v4.0.1"
+    - name: udr
+      rolling_update_test_tag: "v4.0.1"
+      rolling_downgrade_test_tag: "v3.4.5"
+      rolling_version_change_test_tag: "v4.0.1"
+      rollback_from_tag: "v4.0.1"
+    - name: upf1
+      rolling_update_test_tag: "v4.0.1"
+      rolling_downgrade_test_tag: "v3.4.5"
+      rolling_version_change_test_tag: "v4.0.1"
+      rollback_from_tag: "v4.0.1"
+    - name: upf2
+      rolling_update_test_tag: "v4.0.1"
+      rolling_downgrade_test_tag: "v3.4.5"
+      rolling_version_change_test_tag: "v4.0.1"
+      rollback_from_tag: "v4.0.1"
+    - name: upfb
+      rolling_update_test_tag: "v4.0.1"
+      rolling_downgrade_test_tag: "v3.4.5"
+      rolling_version_change_test_tag: "v4.0.1"
+      rollback_from_tag: "v4.0.1"
+    - name: webui
+      rolling_update_test_tag: "v4.0.1"
+      rolling_downgrade_test_tag: "v3.4.5"
+      rolling_version_change_test_tag: "v4.0.1"
+      rollback_from_tag: "v4.0.1"
+    - name: mongodb
+      rolling_update_test_tag: "7.0.9-debian-12-r4"
+      rolling_downgrade_test_tag: "7.0.9-debian-12-r3"
+      rolling_version_change_test_tag: "7.0.9-debian-12-r4"
+      rollback_from_tag: "7.0.9-debian-12-r4"
+deployments:
+  # 使用 helm_dirs 來定義本地的 Helm Chart 部署方式
+  helm_dirs:
+    - name: free5gc-v1                     # 對應 Helm 的 Release Name
+      helm_directory: ./free5gc             # [使用者必須確認] 相對於此設定檔的 Chart 目錄路徑
+      namespace: free5gc                    # 對應 helm install -n free5gc
+      # helm_values: --set mykey=myvalue    # [可選] 如果需要，可加上額外的 helm values 參數
