@@ -24,7 +24,7 @@ global:
     enabled: true
     name: n4network
     type: ipvlan
-    masterIf: eth0
+    masterIf: enp0s3
     subnetIP: 10.100.50.240
     cidr: 29
     gatewayIP: 10.100.50.246
@@ -33,7 +33,7 @@ global:
     enabled: true
     name: n3network
     type: ipvlan
-    masterIf: eth0
+    masterIf: enp0s3
     subnetIP: 10.100.50.232
     cidr: 29
     gatewayIP: 10.100.50.238
@@ -42,7 +42,7 @@ global:
     enabled: true
     name: n6network
     type: ipvlan
-    masterIf: eth1
+    masterIf: enp0s3
     subnetIP: 10.100.100.0
     cidr: 24
     gatewayIP: 10.100.100.1
@@ -51,7 +51,7 @@ global:
     enabled: true
     name: n9network
     type: ipvlan
-    masterIf: eth0
+    masterIf: enp0s3
     subnetIP: 10.100.50.224
     cidr: 29
     gatewayIP: 10.100.50.230
@@ -61,9 +61,9 @@ upf:
   name: upf
   replicaCount: 1
   image:
-    name: free5gc/upf
+    name: localhost:32000/free5gc/upf
     tag: v4.0.0
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   configmap:
     wrapperAdditionalCommands: ""
     # wrapperAdditionalCommands: |
@@ -103,7 +103,8 @@ upf:
     timeoutSeconds: 10
     failureThreshold: 3
     successThreshold: 1
-  nodeSelector: {}
+  nodeSelector:
+    kubernetes.io/hostname: ns2
   tolerations: []
   affinity: {}
   autoscaling:
@@ -131,9 +132,9 @@ upf1:
   name: upf1
   replicaCount: 1
   image:
-    name: free5gc/upf
+    name: localhost:32000/free5gc/upf
     tag: v4.0.0
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   configmap:
     wrapperAdditionalCommands: ""
     # wrapperAdditionalCommands: |
@@ -173,7 +174,8 @@ upf1:
     timeoutSeconds: 10
     failureThreshold: 3
     successThreshold: 1
-  nodeSelector: {}
+  nodeSelector:
+    kubernetes.io/hostname: ns2
   tolerations: []
   affinity: {}
   autoscaling:
@@ -200,9 +202,9 @@ upf2:
   name: upf2
   replicaCount: 1
   image:
-    name: free5gc/upf
+    name: localhost:32000/free5gc/upf
     tag: v4.0.0
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   configmap:
     wrapperAdditionalCommands: ""
     # wrapperAdditionalCommands: |
@@ -242,7 +244,8 @@ upf2:
     timeoutSeconds: 10
     failureThreshold: 3
     successThreshold: 1
-  nodeSelector: {}
+  nodeSelector:
+    kubernetes.io/hostname: ns2
   tolerations: []
   affinity: {}
   autoscaling:
@@ -269,9 +272,9 @@ upfb:
   name: upfb
   replicaCount: 1
   image:
-    name: free5gc/upf
+    name: localhost:32000/free5gc/upf
     tag: v4.0.0
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   configmap:
     wrapperAdditionalCommands: ""
     # wrapperAdditionalCommands: |
@@ -313,7 +316,8 @@ upfb:
     timeoutSeconds: 10
     failureThreshold: 3
     successThreshold: 1
-  nodeSelector: {}
+  nodeSelector:
+    kubernetes.io/hostname: ns2
   tolerations: []
   affinity: {}
   autoscaling:

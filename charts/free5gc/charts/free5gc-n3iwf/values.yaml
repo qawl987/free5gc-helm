@@ -32,14 +32,14 @@ global:
         type: NodePort
   n2network:
     name: n2network
-    masterIf: eth0
+    masterIf: enp0s3
     subnetIP: 10.100.50.248
     cidr: 29
     gatewayIP: 10.100.50.254
     excludeIP: 10.100.50.254
   n3network:
     name: n3network
-    masterIf: eth0
+    masterIf: enp0s3
     subnetIP: 10.100.50.232
     cidr: 29
     gatewayIP: 10.100.50.238
@@ -66,7 +66,7 @@ n3iwf:
   ike:  # define an interface for the IKE daemon as mentioned in the free5gc github README.md
     ipAddress: 172.16.10.5
     name: ikenetwork
-    masterIf: eth0
+    masterIf: enp0s3
     subnetIP: 172.16.10.0
     cidr: 24
     gatewayIP: 172.16.10.1
@@ -94,7 +94,8 @@ n3iwf:
     timeoutSeconds: 10
     failureThreshold: 3
     successThreshold: 1
-  nodeSelector: {}
+  nodeSelector:
+    kubernetes.io/hostname: ns
   tolerations: []
   affinity: {}
   autoscaling:

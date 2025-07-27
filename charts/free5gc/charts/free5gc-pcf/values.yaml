@@ -80,7 +80,8 @@ pcf:
     timeoutSeconds: 10
     failureThreshold: 3
     successThreshold: 1
-  nodeSelector: {}
+  nodeSelector:
+    kubernetes.io/hostname: ns
   tolerations: []
   affinity: {}
   autoscaling:
