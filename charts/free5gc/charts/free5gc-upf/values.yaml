@@ -92,7 +92,8 @@ upf:
       cpu: 500m
       memory: 512Mi
   readinessProbe:
-    initialDelaySeconds: 0
+    enabled: true
+    initialDelaySeconds: 10
     periodSeconds: 1
     timeoutSeconds: 1
     failureThreshold:  40
@@ -163,7 +164,8 @@ upf1:
       cpu: 500m
       memory: 512Mi
   readinessProbe:
-    initialDelaySeconds: 0
+    enabled: true
+    initialDelaySeconds: 10
     periodSeconds: 1
     timeoutSeconds: 1
     failureThreshold:  40
@@ -233,7 +235,8 @@ upf2:
       cpu: 500m
       memory: 512Mi
   readinessProbe:
-    initialDelaySeconds: 0
+    enabled: true
+    initialDelaySeconds: 10
     periodSeconds: 1
     timeoutSeconds: 1
     failureThreshold:  40
@@ -305,7 +308,8 @@ upfb:
       cpu: 500m
       memory: 512Mi
   readinessProbe:
-    initialDelaySeconds: 0
+    enabled: true
+    initialDelaySeconds: 10
     periodSeconds: 1
     timeoutSeconds: 1
     failureThreshold:  40

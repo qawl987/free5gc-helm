@@ -56,8 +56,16 @@ dbpython:
     requests:
       cpu: 100m
       memory: 128Mi
-  readinessProbe: {}
-  livenessrobe: {}
+  readinessProbe:
+    enabled: true
+    exec:
+      command:
+        - "true"
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    failureThreshold: 40
+    successThreshold: 1
+  livenessProbe: {}
   nodeSelector:
     kubernetes.io/hostname: ns
   tolerations: []
