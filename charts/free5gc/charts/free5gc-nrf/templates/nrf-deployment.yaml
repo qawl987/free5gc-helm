@@ -50,8 +50,13 @@ spec:
             {{- toYaml .securityContext | nindent 12 }}
         ports:
         - containerPort: {{ $.Values.global.nrf.service.port }}
-        command: ["./nrf"]
-        args: ["-c", "./config/nrfcfg.yaml"]
+        command:
+          - "/sbin/tini"
+          - "--"
+          - "./nrf"
+        args:
+          - "-c"
+          - "./config/nrfcfg.yaml"
         env:
           - name: DB_URI
             value: mongodb://{{ $.Values.mongodb.service.name }}/free5gc

@@ -51,8 +51,13 @@ spec:
             {{- toYaml .securityContext | nindent 12 }}
         ports:
         - containerPort: {{ .service.port }}
-        command: ["./ausf"]
-        args: ["-c", "./config/ausfcfg.yaml"]
+        command:
+          - "/sbin/tini"
+          - "--"
+          - "./ausf"
+        args:
+          - "-c"
+          - "./config/ausfcfg.yaml"
         env:
           - name: GIN_MODE
             value: release
