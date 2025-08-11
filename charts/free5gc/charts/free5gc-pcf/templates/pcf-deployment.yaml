@@ -50,8 +50,13 @@ spec:
             {{- toYaml .securityContext | nindent 12 }}
         ports:
         - containerPort: {{ .service.port }}
-        command: ["./pcf"]
-        args: ["-c", "./config/pcfcfg.yaml"]
+        command:
+          - "/sbin/tini"
+          - "--"
+          - "./pcf"
+        args:
+          - "-c"
+          - "./config/pcfcfg.yaml"
         env:
           - name: GIN_MODE
             value: release

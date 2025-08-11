@@ -50,8 +50,13 @@ spec:
             {{- toYaml .securityContext | nindent 12 }}
         ports:
         - containerPort: {{ .service.port }}
-        command: ["./udr"]
-        args: ["-c", "./config/udrcfg.yaml"]
+        command:
+          - "/sbin/tini"
+          - "--"
+          - "./udr"
+        args:
+          - "-c"
+          - "./config/udrcfg.yaml"
         env:
           - name: DB_URI
             value: mongodb://{{ $.Values.mongodb.service.name }}/free5gc

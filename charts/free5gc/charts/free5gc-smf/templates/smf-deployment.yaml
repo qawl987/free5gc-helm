@@ -64,8 +64,15 @@ spec:
           containerPort: 8805
           protocol: UDP
         {{- end }}
-        command: ["./smf"]
-        args: ["-c", "./config/smfcfg.yaml", "-u", "./config/uerouting.yaml"]
+        command:
+          - "/sbin/tini"
+          - "--"
+          - "./smf"
+        args:
+          - "-c"
+          - "./config/smfcfg.yaml"
+          - "-u"
+          - "./config/uerouting.yaml"
         env:
           - name: GIN_MODE
             value: release

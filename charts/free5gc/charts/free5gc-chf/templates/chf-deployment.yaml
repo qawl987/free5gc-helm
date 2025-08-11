@@ -41,8 +41,13 @@ spec:
           {{- toYaml .securityContext | nindent 12 }}
         ports:
           - containerPort: {{ .service.port }}
-        command: ["./chf"]
-        args: ["-c", "./config/chfcfg.yaml"]
+        command:
+          - "/sbin/tini"
+          - "--"
+          - "./chf"
+        args:
+          - "-c"
+          - "./config/chfcfg.yaml"
         env:
           - name: GIN_MODE
             value: release
