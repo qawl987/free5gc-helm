@@ -127,14 +127,14 @@ diagnosticMode:
 ## @param image.debug Set to true if you would like to see extra information on logs
 ##
 image:
-  registry: docker.io
+  registry: localhost:32000
   repository: bitnami/mongodb
   tag: 7.0.9-debian-12-r4
   digest: ""
   ## Specify a imagePullPolicy
   ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
   ##
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -427,8 +427,12 @@ initdbScriptsConfigMap: ""
 ## @param command Override default container command (useful when using custom images)
 ## @param args Override default container args (useful when using custom images)
 ##
-command: []
-args: []
+command:
+  - "/usr/bin/tini"
+  - "--"
+  - "/opt/bitnami/scripts/mongodb/entrypoint.sh"
+args:
+  - "/opt/bitnami/scripts/mongodb/run.sh"
 ## @param extraFlags MongoDB(&reg;) additional command line flags
 ## Example:
 ## extraFlags:

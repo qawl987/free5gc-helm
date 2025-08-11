@@ -60,7 +60,7 @@ nrf:
   image:
     name: free5gc/nrf
     tag: v4.0.1
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   volume:
     mount: /free5gc/config/
     tlsmount: /free5gc/config/TLS
