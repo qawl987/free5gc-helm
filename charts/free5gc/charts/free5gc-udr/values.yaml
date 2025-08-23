@@ -51,7 +51,7 @@ udr:
   name: udr
   replicaCount: 1
   image:
-    name: free5gc/udr
+    name: localhost:32000/free5gc/udr-base
     tag: v4.0.1
     pullPolicy: Always
   service:

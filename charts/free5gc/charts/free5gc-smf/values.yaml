@@ -56,7 +56,7 @@ smf:
   name: smf
   replicaCount: 1
   image:
-    name: free5gc/smf
+    name: localhost:32000/free5gc/smf-base
     tag: v4.0.1
     pullPolicy: Always
   service:

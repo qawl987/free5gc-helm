@@ -41,7 +41,7 @@ ausf:
   name: ausf
   replicaCount: 1
   image:
-    name: free5gc/ausf
+    name: localhost:32000/free5gc/ausf-base
     tag: v4.0.1
     pullPolicy: Always
   service:

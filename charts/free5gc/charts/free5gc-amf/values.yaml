@@ -63,7 +63,7 @@ amf:
   name: amf
   replicaCount: 1
   image:
-    name: free5gc/amf
+    name: localhost:32000/free5gc/amf-base
     tag: v4.0.1
     pullPolicy: Always
   service:

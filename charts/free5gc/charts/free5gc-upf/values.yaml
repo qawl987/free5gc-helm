@@ -61,7 +61,7 @@ upf:
   name: upf
   replicaCount: 1
   image:
-    name: free5gc/upf
+    name: localhost:32000/free5gc/upf-base
     tag: v4.0.1
     pullPolicy: Always
   configmap:
@@ -144,7 +144,7 @@ upf1:
   name: upf1
   replicaCount: 1
   image:
-    name: free5gc/upf
+    name: localhost:32000/free5gc/upf-base
     tag: v4.0.1
     pullPolicy: Always
   configmap:
@@ -226,7 +226,7 @@ upf2:
   name: upf2
   replicaCount: 1
   image:
-    name: free5gc/upf
+    name: localhost:32000/free5gc/upf-base
     tag: v4.0.1
     pullPolicy: Always
   configmap:
@@ -308,7 +308,7 @@ upfb:
   name: upfb
   replicaCount: 1
   image:
-    name: free5gc/upf
+    name: localhost:32000/free5gc/upf-base
     tag: v4.0.1
     pullPolicy: Always
   configmap:

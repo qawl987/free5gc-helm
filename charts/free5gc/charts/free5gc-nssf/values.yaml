@@ -41,7 +41,7 @@ nssf:
   name: nssf
   replicaCount: 1
   image:
-    name: free5gc/nssf
+    name: localhost:32000/free5gc/nssf-base
     tag: v4.0.1
     pullPolicy: Always
   service:
