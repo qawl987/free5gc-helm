@@ -43,10 +43,10 @@ global:
     name: n6network
     type: ipvlan
     masterIf: enp0s3
-    subnetIP: 10.100.100.0
+    subnetIP: 10.0.2.0
     cidr: 24
-    gatewayIP: 10.100.100.1
-    excludeIP: 10.100.100.254
+    gatewayIP: 10.0.2.2
+    excludeIP: 10.0.2.254
   n9network:
     enabled: true
     name: n9network
@@ -63,7 +63,7 @@ upf:
   image:
     name: localhost:32000/free5gc/upf-base
     tag: v4.0.1
-    pullPolicy: Always
+    pullPolicy: IfNotPresent 
   configmap:
     wrapperAdditionalCommands: ""
     # wrapperAdditionalCommands: |
@@ -78,7 +78,7 @@ upf:
   n4if:  # PFCP
     ipAddress: 10.100.50.241
   n6if:  # DN
-    ipAddress: 10.100.100.12
+    ipAddress: 10.0.2.12
 
   podAnnotations: {}
     # additional annotations
@@ -118,8 +118,7 @@ upf:
     timeoutSeconds: 10
     failureThreshold: 3
     successThreshold: 1
-  nodeSelector:
-    kubernetes.io/hostname: ns2
+  nodeSelector: {}
   tolerations: []
   affinity: {}
   autoscaling:
@@ -149,7 +148,7 @@ upf1:
   image:
     name: localhost:32000/free5gc/upf-base
     tag: v4.0.1
-    pullPolicy: Always
+    pullPolicy: IfNotPresent 
   configmap:
     wrapperAdditionalCommands: ""
     # wrapperAdditionalCommands: |
@@ -164,7 +163,7 @@ upf1:
   n4if:  # PFCP
     ipAddress: 10.100.50.242
   n6if:  # DN
-    ipAddress: 10.100.100.13
+    ipAddress: 10.0.2.13
 
   podAnnotations: {}
     # additional annotations
@@ -204,8 +203,7 @@ upf1:
     timeoutSeconds: 10
     failureThreshold: 3
     successThreshold: 1
-  nodeSelector:
-    kubernetes.io/hostname: ns2
+  nodeSelector: {}
   tolerations: []
   affinity: {}
   autoscaling:
@@ -234,7 +232,7 @@ upf2:
   image:
     name: localhost:32000/free5gc/upf-base
     tag: v4.0.1
-    pullPolicy: Always
+    pullPolicy: IfNotPresent 
   configmap:
     wrapperAdditionalCommands: ""
     # wrapperAdditionalCommands: |
@@ -249,7 +247,7 @@ upf2:
   n4if:  # PFCP
     ipAddress: 10.100.50.243
   n6if:  # DN
-    ipAddress: 10.100.100.14
+    ipAddress: 10.0.2.14
 
   podAnnotations: {}
     # additional annotations
@@ -289,8 +287,7 @@ upf2:
     timeoutSeconds: 10
     failureThreshold: 3
     successThreshold: 1
-  nodeSelector:
-    kubernetes.io/hostname: ns2
+  nodeSelector: {}
   tolerations: []
   affinity: {}
   autoscaling:
@@ -319,7 +316,7 @@ upfb:
   image:
     name: localhost:32000/free5gc/upf-base
     tag: v4.0.1
-    pullPolicy: Always
+    pullPolicy: IfNotPresent 
   configmap:
     wrapperAdditionalCommands: ""
     # wrapperAdditionalCommands: |
@@ -336,7 +333,7 @@ upfb:
   n4if:  # PFCP
     ipAddress: 10.100.50.241
   n6if:  # DN
-    ipAddress: 10.100.100.12
+    ipAddress: 10.0.2.12
 
   podAnnotations: {}
     # additional annotations
@@ -376,8 +373,7 @@ upfb:
     timeoutSeconds: 10
     failureThreshold: 3
     successThreshold: 1
-  nodeSelector:
-    kubernetes.io/hostname: ns2
+  nodeSelector: {}
   tolerations: []
   affinity: {}
   autoscaling:

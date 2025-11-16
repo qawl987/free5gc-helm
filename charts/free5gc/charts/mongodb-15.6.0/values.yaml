@@ -134,7 +134,7 @@ image:
   ## Specify a imagePullPolicy
   ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
   ##
-  pullPolicy: Always
+  pullPolicy: IfNotPresent 
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -532,7 +532,7 @@ topologySpreadConstraints: []
 lifecycleHooks: {}
 ## @param terminationGracePeriodSeconds MongoDB(&reg;) Termination Grace Period
 ##
-terminationGracePeriodSeconds: ""
+terminationGracePeriodSeconds: 90
 ## @param podLabels MongoDB(&reg;) pod labels
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 ##
@@ -1580,7 +1580,7 @@ arbiter:
   lifecycleHooks: {}
   ## @param arbiter.terminationGracePeriodSeconds Arbiter Termination Grace Period
   ##
-  terminationGracePeriodSeconds: ""
+  terminationGracePeriodSeconds: 90
   ## @param arbiter.updateStrategy.type Strategy that will be employed to update Pods in the StatefulSet
   ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
   ## updateStrategy:
@@ -1923,7 +1923,7 @@ hidden:
   replicaCount: 1
   ## @param hidden.terminationGracePeriodSeconds Hidden Termination Grace Period
   ##
-  terminationGracePeriodSeconds: ""
+  terminationGracePeriodSeconds: 90
   ## @param hidden.updateStrategy.type Strategy that will be employed to update Pods in the StatefulSet
   ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
   ## updateStrategy:

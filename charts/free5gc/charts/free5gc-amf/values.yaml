@@ -112,8 +112,7 @@ amf:
     timeoutSeconds: 10
     failureThreshold: 3
     successThreshold: 1
-  nodeSelector:
-    kubernetes.io/hostname: ns
+  nodeSelector: {}
   tolerations: []
   affinity: {}
   autoscaling:

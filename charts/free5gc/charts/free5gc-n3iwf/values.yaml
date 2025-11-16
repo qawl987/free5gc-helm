@@ -51,7 +51,7 @@ n3iwf:
   image:
     name: free5gc/n3iwf
     tag: v4.0.1
-    pullPolicy: Always
+    pullPolicy: IfNotPresent 
   configmap:
     name: n3iwf-configmap
   volume:
@@ -95,10 +95,18 @@ n3iwf:
     timeoutSeconds: 10
     failureThreshold: 3
     successThreshold: 1
-  nodeSelector:
-    kubernetes.io/hostname: ns
+  nodeSelector: {}
   tolerations: []
-  affinity: {}
+  affinity:
+    podAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: nf
+            operator: In
+            values:
+            - amf
+        topologyKey: "kubernetes.io/hostname"
   autoscaling:
     enabled: false
     minReplicas: 1

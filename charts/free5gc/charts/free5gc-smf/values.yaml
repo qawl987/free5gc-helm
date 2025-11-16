@@ -58,7 +58,7 @@ smf:
   image:
     name: localhost:32000/free5gc/smf-base
     tag: v4.0.1
-    pullPolicy: Always
+    pullPolicy: IfNotPresent 
   service:
     type: ClusterIP
     port: &Port 8080
@@ -105,8 +105,7 @@ smf:
     timeoutSeconds: 10
     failureThreshold: 3
     successThreshold: 1
-  nodeSelector:
-    kubernetes.io/hostname: ns
+  nodeSelector: {}
   tolerations: []
   affinity: {}
   autoscaling:
