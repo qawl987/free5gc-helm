@@ -22,6 +22,7 @@ metadata:
     nf: {{ .name }}
 spec:
   type: ClusterIP
+  clusterIP: None  # Headless service - DNS resolves directly to Pod IP
   ports:
     - port: {{ .service.pfcp.port }}
       targetPort: {{ .service.pfcp.port }}

@@ -18,7 +18,7 @@
 global:
   projectName: free5gc
   userPlaneArchitecture: ulcl  # possible values are "single" and "ulcl"
-  uesubnet: 10.1.0.0/16
+  uesubnet: 10.60.0.0/16
 #Global network parameters - All disabled for single-interface (no-Multus) mode
   n4network:
     enabled: false
@@ -82,10 +82,15 @@ upf:
   podAnnotations: {}
     # additional annotations
   imagePullSecrets: []
-  podSecurityContext: {}
+  podSecurityContext:
+    runAsUser: 0
+    runAsNonRoot: false
   securityContext:
+    privileged: true
+    runAsUser: 0
+    runAsNonRoot: false
     capabilities:
-      add: ["NET_ADMIN"]
+      add: ["NET_ADMIN", "SYS_PTRACE", "NET_RAW"]
   resources:
     requests:
       cpu: 500m
@@ -129,10 +134,7 @@ upf:
   configuration:
     dnnList: # The DNN list supported by UPF
       - dnn: internet # Data Network Name
-        cidr: 10.1.0.0/17 # Classless Inter-Domain Routing for assigned IPv4 pool of UE
-        # natifname: n6
-      - dnn: internet # Data Network Name
-        cidr: 10.1.128.0/17 # Classless Inter-Domain Routing for assigned IPv4 pool of UE
+        cidr: 10.60.0.0/16 # Full UE subnet for single UPF mode
         # natifname: n6
 
     logger: # log output setting
@@ -147,7 +149,7 @@ upf1:
   image:
     name: localhost:32000/free5gc/upf-base
     tag: v4.0.1
-    pullPolicy: IfNotPresent 
+    pullPolicy: Always 
   configmap:
     wrapperAdditionalCommands: ""
     # wrapperAdditionalCommands: |
@@ -165,10 +167,15 @@ upf1:
   podAnnotations: {}
     # additional annotations
   imagePullSecrets: []
-  podSecurityContext: {}
+  podSecurityContext:
+    runAsUser: 0
+    runAsNonRoot: false
   securityContext:
+    privileged: true
+    runAsUser: 0
+    runAsNonRoot: false
     capabilities:
-      add: ["NET_ADMIN"]
+      add: ["NET_ADMIN", "SYS_PTRACE", "NET_RAW"]
   resources:
     requests:
       cpu: 500m
@@ -212,15 +219,12 @@ upf1:
   configuration:
     dnnList: # The DNN list supported by UPF
       - dnn: internet # Data Network Name
-        cidr: 10.1.0.0/17 # Classless Inter-Domain Routing for assigned IPv4 pool of UE
-        # natifname: n6
-      - dnn: internet # Data Network Name
-        cidr: 10.1.128.0/17 # Classless Inter-Domain Routing for assigned IPv4 pool of UE
+        cidr: 10.60.0.0/17 # AnchorUPF1 handles first half of UE subnet
         # natifname: n6
 
     logger: # log output setting
       enable: true # true or false
-      level: info # how detailed to output, value: trace, debug, info, warn, error, fatal, panic
+      level: debug # how detailed to output, value: trace, debug, info, warn, error, fatal, panic
       reportCaller: false # enable the caller report or not, value: true or false
 
 upf2:
@@ -229,7 +233,7 @@ upf2:
   image:
     name: localhost:32000/free5gc/upf-base
     tag: v4.0.1
-    pullPolicy: IfNotPresent 
+    pullPolicy: Always 
   configmap:
     wrapperAdditionalCommands: ""
     # wrapperAdditionalCommands: |
@@ -247,10 +251,15 @@ upf2:
   podAnnotations: {}
     # additional annotations
   imagePullSecrets: []
-  podSecurityContext: {}
+  podSecurityContext:
+    runAsUser: 0
+    runAsNonRoot: false
   securityContext:
+    privileged: true
+    runAsUser: 0
+    runAsNonRoot: false
     capabilities:
-      add: ["NET_ADMIN"]
+      add: ["NET_ADMIN", "SYS_PTRACE", "NET_RAW"]
   resources:
     requests:
       cpu: 500m
@@ -294,15 +303,12 @@ upf2:
   configuration:
     dnnList: # The DNN list supported by UPF
       - dnn: internet # Data Network Name
-        cidr: 10.1.0.0/17 # Classless Inter-Domain Routing for assigned IPv4 pool of UE
-        # natifname: n6
-      - dnn: internet # Data Network Name
-        cidr: 10.1.128.0/17 # Classless Inter-Domain Routing for assigned IPv4 pool of UE
+        cidr: 10.60.128.0/17 # AnchorUPF2 handles second half of UE subnet
         # natifname: n6
 
     logger: # log output setting
       enable: true # true or false
-      level: info # how detailed to output, value: trace, debug, info, warn, error, fatal, panic
+      level: debug # how detailed to output, value: trace, debug, info, warn, error, fatal, panic
       reportCaller: false # enable the caller report or not, value: true or false
 
 upfb:
@@ -311,7 +317,7 @@ upfb:
   image:
     name: localhost:32000/free5gc/upf-base
     tag: v4.0.1
-    pullPolicy: IfNotPresent 
+    pullPolicy: Always 
   configmap:
     wrapperAdditionalCommands: ""
     # wrapperAdditionalCommands: |
@@ -329,10 +335,15 @@ upfb:
   podAnnotations: {}
     # additional annotations
   imagePullSecrets: []
-  podSecurityContext: {}
+  podSecurityContext:
+    runAsUser: 0
+    runAsNonRoot: false
   securityContext:
+    privileged: true
+    runAsUser: 0
+    runAsNonRoot: false
     capabilities:
-      add: ["NET_ADMIN"]
+      add: ["NET_ADMIN", "SYS_PTRACE", "NET_RAW"]
   resources:
     requests:
       cpu: 500m
@@ -374,12 +385,9 @@ upfb:
     targetCPUUtilizationPercentage: 80
     # targetMemoryUtilizationPercentage: 80
   configuration:
-    dnnList: # The DNN list supported by UPF
+    dnnList: # The DNN list supported by UPF - UPFB needs full /16 to handle all UE traffic
       - dnn: internet # Data Network Name
-        cidr: 10.1.0.0/17 # Classless Inter-Domain Routing for assigned IPv4 pool of UE
-        # natifname: n6
-      - dnn: internet # Data Network Name
-        cidr: 10.1.128.0/17 # Classless Inter-Domain Routing for assigned IPv4 pool of UE
+        cidr: 10.60.0.0/16 # Full UE subnet for branching UPF
         # natifname: n6
 
     logger: # log output setting

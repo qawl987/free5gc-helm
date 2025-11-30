@@ -61,12 +61,26 @@ data:
     echo "[wrapper] UPFb PFCP config:"
     cat /tmp/upfcfg.yaml | grep -A3 "pfcp:"
 
+    # Ensure IP forwarding is enabled
+    sysctl -w net.ipv4.ip_forward=1
+
+    # Wait for upfgtp interface to be created by gtp5g module
+    echo "[wrapper] Waiting for upfgtp interface..."
+    for i in $(seq 1 30); do
+      if ip link show upfgtp > /dev/null 2>&1; then
+        echo "[wrapper] upfgtp interface is ready"
+        break
+      fi
+      sleep 1
+    done
+
+    # Note: Route for UE subnet will be automatically added by UPF based on dnnList configuration
+    # No need to manually add route here
+
     # Setup iptables for NAT (single interface mode - eth0)
     iptables -A FORWARD -j ACCEPT
-    # NAT traffic from UE subnet going out via eth0
+    # NAT traffic from UE subnet going out via eth0 (for uplink to internet)
     iptables -t nat -A POSTROUTING -s {{ $.Values.global.uesubnet }} -o eth0 -j MASQUERADE
-    # General masquerade for outgoing traffic
-    iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 
     {{- if $.Values.upfb.configmap.wrapperAdditionalCommands }}
     {{- $.Values.upfb.configmap.wrapperAdditionalCommands | nindent 4 }}
