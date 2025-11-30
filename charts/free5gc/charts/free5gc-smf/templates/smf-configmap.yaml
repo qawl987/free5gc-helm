@@ -40,9 +40,9 @@ data:
       nrfCertPem: ./cert/nrf.pem # NRF Certificate
       {{- .configuration.urrConfiguration | nindent 6 }}
       pfcp:
-        nodeID: {{ $.Values.global.smf.n4if.ipAddress }}
-        listenAddr: {{ $.Values.global.smf.n4if.ipAddress }}
-        externalAddr: {{ $.Values.global.smf.n4if.ipAddress }}
+        nodeID: POD_IP_ADDR
+        listenAddr: POD_IP_ADDR
+        externalAddr: POD_IP_ADDR
 
       {{- .configuration.configuration | nindent 6 }}
 
@@ -56,5 +56,35 @@ data:
       description: Routing information for UE
     ueRoutingInfo:
       {{- .configuration.ueRoutingInfo | nindent 6 }}
+
+  wrapper.sh: |
+    #!/bin/sh
+    set -e
+
+    # Get Pod IP dynamically
+    POD_IP=$(hostname -i | awk '{print $1}')
+    echo "[wrapper] SMF Pod IP detected: $POD_IP"
+
+    # Copy ConfigMap files to writable location
+    cp {{ .volume.mount }}/smfcfg.yaml /tmp/smfcfg.yaml
+    cp {{ .volume.mount }}/uerouting.yaml /tmp/uerouting.yaml
+
+    # Replace POD_IP_ADDR placeholder with actual Pod IP for SMF's own PFCP identity
+    sed -i "s/POD_IP_ADDR/$POD_IP/g" /tmp/smfcfg.yaml
+
+    # Replace UPF Service Name placeholders with actual Service DNS names
+    # These are the PFCP nodeIDs that SMF will use to connect to UPFs
+    sed -i "s/UPFB_SERVICE_NAME/{{ $.Release.Name }}-free5gc-upf-upfb-service/g" /tmp/smfcfg.yaml
+    sed -i "s/UPF1_SERVICE_NAME/{{ $.Release.Name }}-free5gc-upf-upf1-service/g" /tmp/smfcfg.yaml
+    sed -i "s/UPF2_SERVICE_NAME/{{ $.Release.Name }}-free5gc-upf-upf2-service/g" /tmp/smfcfg.yaml
+
+    echo "[wrapper] Configuration files prepared in /tmp"
+    echo "[wrapper] SMF PFCP config:"
+    cat /tmp/smfcfg.yaml | grep -A3 "pfcp:"
+    echo "[wrapper] UPF nodeIDs:"
+    cat /tmp/smfcfg.yaml | grep "nodeID:"
+
+    # Execute SMF with dynamic configuration
+    exec ./smf -c /tmp/smfcfg.yaml -u /tmp/uerouting.yaml
 
 {{- end }}

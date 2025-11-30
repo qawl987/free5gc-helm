@@ -19,9 +19,9 @@ global:
   projectName: free5gc
   userPlaneArchitecture: ulcl  # possible values are "single" and "ulcl"
   uesubnet: 10.1.0.0/16
-#Global network parametes
+#Global network parameters - All disabled for single-interface (no-Multus) mode
   n4network:
-    enabled: true
+    enabled: false
     name: n4network
     type: ipvlan
     masterIf: enp0s3
@@ -30,7 +30,7 @@ global:
     gatewayIP: 10.100.50.246
     excludeIP: 10.100.50.246
   n3network:
-    enabled: true
+    enabled: false
     name: n3network
     type: ipvlan
     masterIf: enp0s3
@@ -39,7 +39,7 @@ global:
     gatewayIP: 10.100.50.238
     excludeIP: 10.100.50.238
   n6network:
-    enabled: true
+    enabled: false
     name: n6network
     type: ipvlan
     masterIf: enp0s3
@@ -48,7 +48,7 @@ global:
     gatewayIP: 10.0.2.2
     excludeIP: 10.0.2.254
   n9network:
-    enabled: true
+    enabled: false
     name: n9network
     type: ipvlan
     masterIf: enp0s3
@@ -72,13 +72,12 @@ upf:
     mount: /free5gc/config/
     tlsmount: /free5gc/config/TLS
 
-  # network paramters
-  n3if:  # GTP-U
-    ipAddress: 10.100.50.233
-  n4if:  # PFCP
-    ipAddress: 10.100.50.241
-  n6if:  # DN
-    ipAddress: 10.0.2.12
+  # Network interfaces - IPs are dynamically assigned at runtime via Pod IP
+  # These placeholders are kept for documentation but not used
+  service:
+    pfcp:
+      port: 8805
+      protocol: UDP
 
   podAnnotations: {}
     # additional annotations
@@ -157,13 +156,11 @@ upf1:
     mount: /free5gc/config/
     tlsmount: /free5gc/config/TLS
 
-  # network paramters
-  n9if:  # GTP-U
-    ipAddress: 10.100.50.226
-  n4if:  # PFCP
-    ipAddress: 10.100.50.242
-  n6if:  # DN
-    ipAddress: 10.0.2.13
+  # Network interfaces - IPs are dynamically assigned at runtime via Pod IP
+  service:
+    pfcp:
+      port: 8805
+      protocol: UDP
 
   podAnnotations: {}
     # additional annotations
@@ -241,13 +238,11 @@ upf2:
     mount: /free5gc/config/
     tlsmount: /free5gc/config/TLS
 
-  # network paramters
-  n9if:  # GTP-U
-    ipAddress: 10.100.50.227
-  n4if:  # PFCP
-    ipAddress: 10.100.50.243
-  n6if:  # DN
-    ipAddress: 10.0.2.14
+  # Network interfaces - IPs are dynamically assigned at runtime via Pod IP
+  service:
+    pfcp:
+      port: 8805
+      protocol: UDP
 
   podAnnotations: {}
     # additional annotations
@@ -325,15 +320,11 @@ upfb:
     mount: /free5gc/config/
     tlsmount: /free5gc/config/TLS
 
-  # network paramters
-  n3if:  # GTP-U
-    ipAddress: 10.100.50.233
-  n9if:  # GTP-U
-    ipAddress: 10.100.50.225
-  n4if:  # PFCP
-    ipAddress: 10.100.50.241
-  n6if:  # DN
-    ipAddress: 10.0.2.12
+  # Network interfaces - IPs are dynamically assigned at runtime via Pod IP
+  service:
+    pfcp:
+      port: 8805
+      protocol: UDP
 
   podAnnotations: {}
     # additional annotations
