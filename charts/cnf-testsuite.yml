@@ -91,3 +91,6 @@ deployments:
       helm_directory: ./free5gc             # [使用者必須確認] 相對於此設定檔的 Chart 目錄路徑
       namespace: free5gc                    # 對應 helm install -n free5gc
       # helm_values: --set mykey=myvalue    # [可選] 如果需要，可加上額外的 helm values 參數
+common:
+  hardcoded_ip_exceptions:
+    - ip: 8.8.8.8
