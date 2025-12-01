@@ -48,9 +48,9 @@ gnb:
   name: gnb
   replicaCount: 1
   image:
-    name: free5gc/ueransim
-    tag: v4.0.1
-    pullPolicy: IfNotPresent
+    name: localhost:32000/ueransim
+    tag: v3.2.7-tcpdump
+    pullPolicy: Always
   configmap:
     name: gnb-configmap
   volume:
@@ -105,9 +105,9 @@ ue:
   name: ue
   replicaCount: 1
   image:
-    name: free5gc/ueransim
-    tag: v4.0.1
-    pullPolicy: IfNotPresent
+    name: localhost:32000/ueransim
+    tag: v3.2.7-tcpdump
+    pullPolicy: Always
   configmap:
     name: ue-configmap
   volume:
